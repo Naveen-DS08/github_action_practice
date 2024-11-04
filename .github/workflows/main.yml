@@ -1,0 +1,35 @@
+name: Python CI
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+    
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            # Step_1: checkout the code from repo
+            - name: Chech out code
+              uses: actions/checkout@v2
+
+            # Step_2: Set up the Python environment
+            - name: Set up Python 
+              uses: actions/setup-python@v2
+              with:
+                python-version: "3.9"
+            
+            # Step_3: Install dependencied
+            - name: Install dependencies
+              run:
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+
+            # Step_4: Run tests
+            - name: Run tests
+              run: pytest
+
